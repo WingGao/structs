@@ -99,7 +99,7 @@ func (s *Struct) FillMap(out map[string]interface{}) {
 		isSubStruct := false
 		var finalVal interface{}
 
-		tagName, tagOpts := parseTag(field.Tag.Get(s.TagName))
+		tagName, tagOpts := ParseTag(field.Tag.Get(s.TagName))
 		if tagName != "" {
 			name = tagName
 		}
@@ -179,7 +179,7 @@ func (s *Struct) Values() []interface{} {
 	for _, field := range fields {
 		val := s.value.FieldByName(field.Name)
 
-		_, tagOpts := parseTag(field.Tag.Get(s.TagName))
+		_, tagOpts := ParseTag(field.Tag.Get(s.TagName))
 
 		// if the value is a zero value and the field is marked as omitempty do
 		// not include
@@ -321,7 +321,7 @@ func (s *Struct) IsZero() bool {
 	for _, field := range fields {
 		val := s.value.FieldByName(field.Name)
 
-		_, tagOpts := parseTag(field.Tag.Get(s.TagName))
+		_, tagOpts := ParseTag(field.Tag.Get(s.TagName))
 
 		if IsStruct(val.Interface()) && !tagOpts.Has("omitnested") {
 			ok := IsZero(val.Interface())
@@ -368,7 +368,7 @@ func (s *Struct) HasZero() bool {
 	for _, field := range fields {
 		val := s.value.FieldByName(field.Name)
 
-		_, tagOpts := parseTag(field.Tag.Get(s.TagName))
+		_, tagOpts := ParseTag(field.Tag.Get(s.TagName))
 
 		if IsStruct(val.Interface()) && !tagOpts.Has("omitnested") {
 			ok := HasZero(val.Interface())
